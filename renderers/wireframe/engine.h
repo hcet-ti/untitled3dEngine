@@ -2,8 +2,10 @@
 algorythm: https://rosettacode.org/wiki/Ray-casting_algorithm
 */
 
-#include "vector.h"
-#include "triangle.h"
+#include "render.h"
+#include "const.h"
+#include "camera.h"
+#include "vector3.h"
 #include "mesh.h"
 #include "raycast.h"
 
