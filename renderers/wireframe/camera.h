@@ -9,15 +9,17 @@ private:
     /* data */
 public:
     Camera();
-    Camera(Vector3 position, float focalLength);
+    Camera(Vector3 position, Vector3 rotation, float focalLength);
     ~Camera();
     float focalLength;
     Vector3 position;
+    Vector3 rotation;
 };
 
-Camera::Camera(Vector3 position, float focalLength)
+Camera::Camera(Vector3 position, Vector3 rotation, float focalLength)
 {
     this->position = position;
+    this->rotation = rotation;
     this->focalLength = focalLength;
 }
 

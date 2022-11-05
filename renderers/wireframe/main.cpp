@@ -1,11 +1,7 @@
-/*
-main function for a wireframe 3d renderer
-*/
-
 #include "engine.h"
-#include <SDL.h>
+#include <cstdio>
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -17,14 +13,37 @@ int main(int argc, char const *argv[])
     SDL_Window* win = SDL_CreateWindow("Main Window",
                                        SDL_WINDOWPOS_CENTERED,
                                        SDL_WINDOWPOS_CENTERED,
-                                       480, 360, 0);
+                                       SCREEN_WIDTH, SCREEN_HEIGTH, 0);
     Uint32 render_flags = SDL_RENDERER_ACCELERATED;
     SDL_Renderer* rend = SDL_CreateRenderer(win, -1, render_flags);
     SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_bool done = SDL_FALSE;
 
-    Camera cam = {{0, 0, 0}, 1};
-    Mesh mesh = {};
+    Camera cam = {{0, 0, 0}, {0, 0, 0}, 0.5};
+    Mesh mesh = {{
+    //    X   Y   Z 
+        {-1, -1, -1}, // 0
+        {-1, -1,  1}, // 1
+        {-1,  1, -1}, // 2
+        {-1,  1,  1}, // 3
+        { 1, -1, -1}, // 4
+        { 1, -1,  1}, // 5
+        { 1,  1, -1}, // 6
+        { 1,  1,  1}  // 7
+    }, {
+        {0, 1},
+        {0, 2},
+        {0, 4},
+        {7, 3},
+        {7, 5},
+        {7, 6},
+        {3, 1},
+        {5, 1},
+        {6, 4},
+        {5, 4},
+        {6, 2},
+        {3, 2},
+    }};
 
     while (!done) 
     {
@@ -33,13 +52,8 @@ int main(int argc, char const *argv[])
         SDL_SetRenderDrawColor(rend, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(rend);
 
-        render(cam, mesh);
-
-
-        /*SDL_SetRenderDrawColor(rend, 255, 255, 255, SDL_ALPHA_OPAQUE);
-        SDL_RenderDrawLine(rend, 320, 200, 300, 240);
-        SDL_RenderDrawLine(rend, 300, 240, 340, 240);
-        SDL_RenderDrawLine(rend, 340, 240, 320, 200);*/
+        render(rend, cam, mesh);
+        
         SDL_RenderPresent(rend);
 
         while (SDL_PollEvent(&event)) 
@@ -54,27 +68,21 @@ int main(int argc, char const *argv[])
                 switch (event.key.keysym.sym)
                 {
                 case SDLK_LEFT:
-                    camera.rotation.y -= 0.1;
                     break;
                 
                 case SDLK_RIGHT:
-                    camera.rotation.y += 0.1;
                     break;
                 
                 case SDLK_UP:
-                    camera.rotation.x += 0.1;
                     break;
                 
                 case SDLK_DOWN:
-                    camera.rotation.x -= 0.1;
                     break;
 
                 case SDLK_w:
-                    triangle1.p1.x -= .5;
                     break;
 
                 case SDLK_s:
-                    triangle1.p1.x += .5;
                     break;
                 
                 default:
@@ -83,12 +91,12 @@ int main(int argc, char const *argv[])
                 break;
 
             case SDL_MOUSEMOTION:
-                camera.rotation.x -= event.motion.yrel * 0.001;
-                camera.rotation.y += event.motion.xrel * 0.001;
+                //camera.rotation.x -= event.motion.yrel * 0.001;
+                //camera.rotation.y += event.motion.xrel * 0.001;
                 break;
 
             case SDL_MOUSEWHEEL:
-                camera.focalLength += event.wheel.y;
+                cam.focalLength += event.wheel.y;
                 break;
             
             default:
