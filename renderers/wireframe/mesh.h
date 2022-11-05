@@ -1,7 +1,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "triangle.h"
 #include <vector>
 
 typedef struct Edge
