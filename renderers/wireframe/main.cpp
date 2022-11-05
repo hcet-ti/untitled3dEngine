@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_bool done = SDL_FALSE;
 
-    Camera cam = {{0, 0, 0}, {0, 0, 0}, 0.5};
+    Camera cam = {{0, 0, 1}, {0, 0, 0}, 0.5};
     Mesh mesh = {{
     //    X   Y   Z 
         {-1, -1, -1}, // 0
@@ -80,9 +80,11 @@ int main(int argc, char *argv[])
                     break;
 
                 case SDLK_w:
+                    cam.position.z -= 1;
                     break;
 
                 case SDLK_s:
+                    cam.position.z += 1;
                     break;
                 
                 default:
