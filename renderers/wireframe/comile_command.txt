@@ -1,0 +1,3 @@
+# TODO: turn this into a make/cmake file
+# idk, this worked for me
+g++ -g renderers\wireframe\main.cpp -I.\SDL2\include -L.\SDL2\lib -Wall -lmingw32 -lSDL2main -lSDL2 -o main
