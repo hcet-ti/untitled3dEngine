@@ -11,6 +11,7 @@ public:
     float x;
     float y;
     float z;
+    Vector3 operator*(const float& number);
 };
 
 Vector3::Vector3(float xCoordinate = 0.0f, float yCoordinate = 0.0f, float zCoordinate = 0.0f)
@@ -22,6 +23,15 @@ Vector3::Vector3(float xCoordinate = 0.0f, float yCoordinate = 0.0f, float zCoor
 
 Vector3::~Vector3()
 {
+}
+
+Vector3 Vector3::operator*(const float& number)
+{
+    return {
+        x * number,
+        y * number, 
+        z * number
+    };
 }
 
 #endif

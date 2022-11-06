@@ -21,13 +21,12 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
     std::vector<Coordinate2D> projectedPoints;
 
     for (Vector3 vertex : mesh.vertexTable) {
-        vertex = rotatePoint(vertex, mesh.rotation, mesh.position);
+        vertex = rotatePoint(vertex, cam.rotation, cam.position);
 
         Coordinate2D projectedCoordinates = {
             int(round((cam.focalLength * (vertex.x + cam.position.x + mesh.position.x)) / (cam.focalLength + vertex.z + cam.position.z + mesh.position.z))),
             int(round((cam.focalLength * (vertex.y + cam.position.y + mesh.position.y)) / (cam.focalLength + vertex.z + cam.position.z + mesh.position.z)))
         };
-        printf("projected point %lld: \nx: %d\ny: %d\n", projectedPoints.size(), projectedCoordinates.x, projectedCoordinates.y);
         projectedPoints.push_back(projectedCoordinates);
     }
 
@@ -38,7 +37,6 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
             projectedPoints[edge.p2].x >= -(SCREEN_WIDTH / 2) && projectedPoints[edge.p2].x <= SCREEN_WIDTH - SCREEN_WIDTH / 2 &&
             projectedPoints[edge.p2].y >= -(SCREEN_HEIGTH / 2) && projectedPoints[edge.p2].x <= SCREEN_HEIGTH - SCREEN_HEIGTH / 2)
         {
-            printf("drawing line between p%d (%5d, %5d) and p%d (%5d, %5d)\n", edge.p1, projectedPoints[edge.p1].x, projectedPoints[edge.p1].y, edge.p2, projectedPoints[edge.p2].x, projectedPoints[edge.p2].y);
             SDL_SetRenderDrawColor(rend, 255, 255, 255, SDL_ALPHA_OPAQUE);
             SDL_RenderDrawLine(rend, 
                 projectedPoints[edge.p1].x + SCREEN_WIDTH / 2, projectedPoints[edge.p1].y + SCREEN_HEIGTH / 2,

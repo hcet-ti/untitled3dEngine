@@ -2,6 +2,9 @@
 #define MESH_H
 
 #include <vector>
+#include <algorithm>
+#include "scale.h"
+#include "move.h"
 
 typedef struct Edge
 {
@@ -14,26 +17,38 @@ class Mesh
 private:
     /* data */
 public:
-    Mesh(std::vector<Vector3> vertices, std::vector<Edge> edges, Vector3 scale, Vector3 position, Vector3 rotation);
+    Mesh(std::vector<Vector3> vertices, std::vector<Edge> edges, Vector3 scale, Vector3 location, Vector3 rotationVector);
     ~Mesh();
     std::vector<Vector3> vertexTable;
     std::vector<Edge> edgeTable;
-    Vector3 scale;
+    Vector3 scaleFactor;
     Vector3 position;
     Vector3 rotation;
+    void scale(Vector3 scale);
 };
 
-Mesh::Mesh(std::vector<Vector3> vertices = {}, std::vector<Edge> edges = {}, Vector3 scale = {1, 1, 1}, Vector3 position = {0, 0, 0}, Vector3 rotation = {0, 0, 0})
+Mesh::Mesh(std::vector<Vector3> vertices = {}, std::vector<Edge> edges = {}, Vector3 scale = {1.0f, 1.0f, 1.0f}, Vector3 location = {0.0f, 0.0f, 0.0f}, Vector3 rotationVector = {0.0f, 0.0f, 0.0f})
 {
     vertexTable = vertices;
     edgeTable = edges;
-    this->scale = scale;
-    this->position = position;
-    this->rotation = rotation;
+    scaleFactor= scale;
+    position = location;
+    rotation = rotationVector;
 }
 
 Mesh::~Mesh()
 {
+}
+
+void Mesh::scale(Vector3 scale)
+{
+    scaleFactor = scale;
+    
+    for (Vector3 &vertex : vertexTable)
+    {
+        vertex = scalePoint(vertex, scale, position);
+    }
+    
 }
 
 #endif

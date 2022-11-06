@@ -4,23 +4,24 @@
 #include "vector3.h"
 #include <math.h>
 
-Vector3 rotatePointX(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
+Vector3 rotatePointX(Vector3 point, float angle, Vector3 origin = {0.0f, 0.0f, 0.0f})
 {
     /* formulas: 
     x′ = x × cos(β) − y × sin(β)
     y′ = y × cos(β) + x × sin(β)        */
     float sinAngle = sin(angle);
     float cosAngle = cos(angle);
+    Vector3 rotatedPoint = point;
 
     // subract the origins transformation
-    point.x -= origin.x;
-    point.y -= origin.y;
-    point.z -= origin.z;
+    rotatedPoint.x -= origin.x;
+    rotatedPoint.y -= origin.y;
+    rotatedPoint.z -= origin.z;
 
-    Vector3 rotatedPoint = {
-        point.x,
-        point.y * cosAngle - point.z * sinAngle,
-        point.z * cosAngle + point.y * sinAngle
+    rotatedPoint = {
+        rotatedPoint.x,
+        rotatedPoint.y * cosAngle - rotatedPoint.z * sinAngle,
+        rotatedPoint.z * cosAngle + rotatedPoint.y * sinAngle
     };
 
     // add the origins transformation
@@ -31,23 +32,24 @@ Vector3 rotatePointX(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
     return rotatedPoint;
 }
 
-Vector3 rotatePointY(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
+Vector3 rotatePointY(Vector3 point, float angle, Vector3 origin = {0.0f, 0.0f, 0.0f})
 {
     /* formulas: 
     x′ = x × cos(β) − y × sin(β)
     y′ = y × cos(β) + x × sin(β)        */
     float sinAngle = sin(angle);
     float cosAngle = cos(angle);
+    Vector3 rotatedPoint = point;
 
     // subract the origins transformation
-    point.x -= origin.x;
-    point.y -= origin.y;
-    point.z -= origin.z;
+    rotatedPoint.x -= origin.x;
+    rotatedPoint.y -= origin.y;
+    rotatedPoint.z -= origin.z;
 
-    Vector3 rotatedPoint = {
-        point.x * cosAngle - point.z * sinAngle,
-        point.y,
-        point.z * cosAngle + point.x * sinAngle
+    rotatedPoint = {
+        rotatedPoint.x * cosAngle - rotatedPoint.z * sinAngle,
+        rotatedPoint.y,
+        rotatedPoint.z * cosAngle + rotatedPoint.x * sinAngle
     };
 
     // add the origins transformation
@@ -58,23 +60,24 @@ Vector3 rotatePointY(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
     return rotatedPoint;
 }
 
-Vector3 rotatePointZ(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
+Vector3 rotatePointZ(Vector3 point, float angle, Vector3 origin = {0.0f, 0.0f, 0.0f})
 {
     /* formulas: 
     x′ = x × cos(β) − y × sin(β)
     y′ = y × cos(β) + x × sin(β)        */
     float sinAngle = sin(angle);
     float cosAngle = cos(angle);
+    Vector3 rotatedPoint = point;
 
     // subract the origins transformation
-    point.x -= origin.x;
-    point.y -= origin.y;
-    point.z -= origin.z;
+    rotatedPoint.x -= origin.x;
+    rotatedPoint.y -= origin.y;
+    rotatedPoint.z -= origin.z;
 
-    Vector3 rotatedPoint = {
-        point.x * cosAngle - point.y * sinAngle,
-        point.y * cosAngle + point.x * sinAngle,
-        point.z
+    rotatedPoint = {
+        rotatedPoint.x * cosAngle - rotatedPoint.y * sinAngle,
+        rotatedPoint.y * cosAngle + rotatedPoint.x * sinAngle,
+        rotatedPoint.z
     };
 
     // add the origins transformation
@@ -85,7 +88,7 @@ Vector3 rotatePointZ(Vector3 point, float angle, Vector3 origin = {0, 0, 0})
     return rotatedPoint;
 }
 
-Vector3 rotatePoint(Vector3 point, Vector3 rotation, Vector3 origin = {0, 0, 0})
+Vector3 rotatePoint(Vector3 point, Vector3 rotation, Vector3 origin = {0.0f, 0.0f, 0.0f})
 {
     Vector3 rotatedPoint = rotatePointX(point, rotation.x, origin);
     rotatedPoint = rotatePointY(rotatedPoint, rotation.y, origin);
