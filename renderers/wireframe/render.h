@@ -4,6 +4,7 @@
 #include "const.h"
 #include "camera.h"
 #include "mesh.h"
+#include "rotate.h"
 #include "../../SDL2/include/SDL2/SDL.h"
 #include <math.h>
 #include <vector>
@@ -20,9 +21,11 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
     std::vector<Coordinate2D> projectedPoints;
 
     for (Vector3 vertex : mesh.vertexTable) {
+        vertex = rotatePoint(vertex, mesh.rotation, mesh.position);
+
         Coordinate2D projectedCoordinates = {
-            int(round((cam.focalLength * (vertex.x + cam.position.x)) / (cam.focalLength + vertex.z + cam.position.z))),
-            int(round((cam.focalLength * (vertex.y + cam.position.y)) / (cam.focalLength + vertex.z + cam.position.z)))
+            int(round((cam.focalLength * (vertex.x + cam.position.x + mesh.position.x)) / (cam.focalLength + vertex.z + cam.position.z + mesh.position.z))),
+            int(round((cam.focalLength * (vertex.y + cam.position.y + mesh.position.y)) / (cam.focalLength + vertex.z + cam.position.z + mesh.position.z)))
         };
         printf("projected point %lld: \nx: %d\ny: %d\n", projectedPoints.size(), projectedCoordinates.x, projectedCoordinates.y);
         projectedPoints.push_back(projectedCoordinates);

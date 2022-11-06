@@ -19,17 +19,18 @@ int main(int argc, char *argv[])
     SDL_SetRelativeMouseMode(SDL_TRUE);
     SDL_bool done = SDL_FALSE;
 
-    Camera cam = {{0, 0, 1}, {0, 0, 0}, 0.5};
+    float scale = 10;
+    Camera cam = {{0, 0, 0}, {0, 0, 0}, 1};
     Mesh mesh = {{
     //    X   Y   Z 
-        {-1, -1, -1}, // 0
-        {-1, -1,  1}, // 1
-        {-1,  1, -1}, // 2
-        {-1,  1,  1}, // 3
-        { 1, -1, -1}, // 4
-        { 1, -1,  1}, // 5
-        { 1,  1, -1}, // 6
-        { 1,  1,  1}  // 7
+        {-1 * scale, -1 * scale, -1 * scale}, // 0
+        {-1 * scale, -1 * scale,  1 * scale}, // 1
+        {-1 * scale,  1 * scale, -1 * scale}, // 2
+        {-1 * scale,  1 * scale,  1 * scale}, // 3
+        { 1 * scale, -1 * scale, -1 * scale}, // 4
+        { 1 * scale, -1 * scale,  1 * scale}, // 5
+        { 1 * scale,  1 * scale, -1 * scale}, // 6
+        { 1 * scale,  1 * scale,  1 * scale}  // 7
     }, {
         {0, 1},
         {0, 2},
@@ -86,6 +87,14 @@ int main(int argc, char *argv[])
                 case SDLK_s:
                     cam.position.z += 1;
                     break;
+
+                case SDLK_a:
+                    cam.position.x += 1;
+                    break;
+
+                case SDLK_d:
+                    cam.position.x -= 1;
+                    break;
                 
                 default:
                     break;
@@ -93,8 +102,8 @@ int main(int argc, char *argv[])
                 break;
 
             case SDL_MOUSEMOTION:
-                //camera.rotation.x -= event.motion.yrel * 0.001;
-                //camera.rotation.y += event.motion.xrel * 0.001;
+                cam.rotation.x -= event.motion.yrel * 0.001;
+                cam.rotation.y += event.motion.xrel * 0.001;
                 break;
 
             case SDL_MOUSEWHEEL:
