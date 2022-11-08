@@ -21,7 +21,7 @@ public:
     ~Mesh();
     std::vector<Vector3> vertexTable;
     std::vector<Edge> edgeTable;
-    Vector3 scaleFactor;
+    Vector3 size;
     Vector3 position;
     Vector3 rotation;
     void scale(Vector3 scale);
@@ -31,7 +31,7 @@ Mesh::Mesh(std::vector<Vector3> vertices = {}, std::vector<Edge> edges = {}, Vec
 {
     vertexTable = vertices;
     edgeTable = edges;
-    scaleFactor= scale;
+    size = scale;
     position = location;
     rotation = rotationVector;
 }
@@ -42,7 +42,7 @@ Mesh::~Mesh()
 
 void Mesh::scale(Vector3 scale)
 {
-    scaleFactor = scale;
+    size = scale;
     
     for (Vector3 &vertex : vertexTable)
     {

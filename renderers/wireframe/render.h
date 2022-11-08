@@ -32,10 +32,10 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
 
     for (Edge edge : mesh.edgeTable)
     {
-        if (projectedPoints[edge.p1].x >= -(SCREEN_WIDTH / 2) && projectedPoints[edge.p1].x <= SCREEN_WIDTH - SCREEN_WIDTH / 2 &&
-            projectedPoints[edge.p1].y >= -(SCREEN_HEIGTH / 2) && projectedPoints[edge.p1].x <= SCREEN_HEIGTH - SCREEN_HEIGTH / 2 &&
-            projectedPoints[edge.p2].x >= -(SCREEN_WIDTH / 2) && projectedPoints[edge.p2].x <= SCREEN_WIDTH - SCREEN_WIDTH / 2 &&
-            projectedPoints[edge.p2].y >= -(SCREEN_HEIGTH / 2) && projectedPoints[edge.p2].x <= SCREEN_HEIGTH - SCREEN_HEIGTH / 2)
+        if (abs(projectedPoints[edge.p1].x) < 2e6 && 
+            abs(projectedPoints[edge.p1].y) < 2e6 && 
+            abs(projectedPoints[edge.p2].x) < 2e6 && 
+            abs(projectedPoints[edge.p2].y) < 2e6 )
         {
             SDL_SetRenderDrawColor(rend, 255, 255, 255, SDL_ALPHA_OPAQUE);
             SDL_RenderDrawLine(rend, 
@@ -43,6 +43,7 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
                 projectedPoints[edge.p2].x + SCREEN_WIDTH / 2, projectedPoints[edge.p2].y + SCREEN_HEIGTH / 2
             );
         }
+
     }
     
 }
