@@ -19,12 +19,12 @@ public:
     Vector3 operator+(const Vector3 vec);
     Vector3 operator-(const float num);
     Vector3 operator-(const Vector3 vec);
-    Vector3 operator*=(const float num);
-    Vector3 operator*=(const Vector3 vec);
-    Vector3 operator+=(const float num);
-    Vector3 operator+=(const Vector3 vec);
-    Vector3 operator-=(const float num);
-    Vector3 operator-=(const Vector3 vec);
+    void operator*=(const float num);
+    void operator*=(const Vector3 vec);
+    void operator+=(const float num);
+    void operator+=(const Vector3 vec);
+    void operator-=(const float num);
+    void operator-=(const Vector3 vec);
 };
 
 Vector3::Vector3(float xCoordinate = 0.0f, float yCoordinate = 0.0f, float zCoordinate = 0.0f)
@@ -110,42 +110,42 @@ Vector3 Vector3::operator-(const Vector3 vec)
     };
 }
 
-Vector3 Vector3::operator*=(const float num)
+void Vector3::operator*=(const float num)
 {
     x *= num;
     y *= num;
     z *= num;
 }
 
-Vector3 Vector3::operator*=(const Vector3 vec)
+void Vector3::operator*=(const Vector3 vec)
 {
     x *= vec.x;
     y *= vec.y;
     z *= vec.z;
 }
 
-Vector3 Vector3::operator+=(const float num)
+void Vector3::operator+=(const float num)
 {
     x += num;
     y += num;
     z += num;
 }
 
-Vector3 Vector3::operator+=(const Vector3 vec)
+void Vector3::operator+=(const Vector3 vec)
 {
     x += vec.x;
     y += vec.y;
     z += vec.z;
 }
 
-Vector3 Vector3::operator-=(const float num)
+void Vector3::operator-=(const float num)
 {
     x -= num;
     y -= num;
     z -= num;
 }
 
-Vector3 Vector3::operator-=(const Vector3 vec)
+void Vector3::operator-=(const Vector3 vec)
 {
     x -= vec.x;
     y -= vec.y;

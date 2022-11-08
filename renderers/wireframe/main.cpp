@@ -102,8 +102,8 @@ int main(int argc, char *argv[])
                 break;
 
             case SDL_MOUSEMOTION:
-                cam.rotation.x -= event.motion.yrel * 0.001;
-                cam.rotation.y += event.motion.xrel * 0.001;
+                mesh.rotation.x -= event.motion.yrel * 0.001;
+                mesh.rotation.y += event.motion.xrel * 0.001;
                 break;
 
             case SDL_MOUSEWHEEL:

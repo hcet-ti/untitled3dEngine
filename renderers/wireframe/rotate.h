@@ -69,7 +69,11 @@ Vector3 rotatePointZ(Vector3 point, float angle, Vector3 origin = {0.0f, 0.0f, 0
 
 Vector3 rotatePoint(Vector3 point, Vector3 rotation, Vector3 origin = {0.0f, 0.0f, 0.0f})
 {
-    return rotatePointZ(rotatePointY(rotatePointX(point, rotation.x, origin), rotation.y, origin), rotation.z, origin);
+    point = rotatePointX(point, rotation.x, origin);
+    point = rotatePointY(point, rotation.y, origin);
+    point = rotatePointZ(point, rotation.z, origin);
+
+    return point;
 }
 
 #endif

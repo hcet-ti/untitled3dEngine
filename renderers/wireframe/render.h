@@ -21,7 +21,7 @@ void render(SDL_Renderer *rend, Camera cam, Mesh mesh)
     std::vector<Coordinate2D> projectedPoints;
 
     for (Vector3 vertex : mesh.vertexTable) {
-        vertex = rotatePoint(vertex, cam.rotation, cam.position);
+        vertex = rotatePoint(vertex, mesh.rotation, mesh.position);
 
         Coordinate2D projectedCoordinates = {
             int(round((cam.focalLength * (vertex.x + cam.position.x + mesh.position.x)) / (cam.focalLength + vertex.z + cam.position.z + mesh.position.z))),
