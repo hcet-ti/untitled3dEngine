@@ -25,6 +25,7 @@ public:
     Vector3 position;
     Vector3 rotation;
     void scale(Vector3 scale);
+    void move(Vector3 movement);
 };
 
 Mesh::Mesh(std::vector<Vector3> vertices = {}, std::vector<Edge> edges = {}, Vector3 scale = {1.0f, 1.0f, 1.0f}, Vector3 location = {0.0f, 0.0f, 0.0f}, Vector3 rotationVector = {0.0f, 0.0f, 0.0f})
@@ -49,6 +50,17 @@ void Mesh::scale(Vector3 scale)
         vertex = scalePoint(vertex, scale, position);
     }
     
+}
+
+void Mesh::move(Vector3 movement)
+{
+    position = position + movement;
+
+    for (Vector3 &vertex : vertexTable)
+    {
+        vertex = movePoint(vertex, movement);
+    }
+
 }
 
 #endif
